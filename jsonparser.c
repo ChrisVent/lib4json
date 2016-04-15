@@ -1,34 +1,24 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "jsonparser.h"
 
-#define JSON_MAX_LENGTH 64
-typedef enum
-{
-    JSON_NUMBER = 1,
-    JSON_STRING,
-    JSON_BOOLEAN,
-    JSON_ARRAY,
-    JSON_OBJECT
-}
-jsonType;
+int main (int args, const char *argv[]){
+    // #    create the json string
+    const char* json = "{\"userID\":1,\"username\":\"Admin\",\"pass\":\"Lorem123\",\"name\":\"Christian Brown\",\"admin\":true}";
+    // #    create json object and parse the string
+    jsonObject myJson = jsonParse(json);
+    // #    print the json parsed
+    //printJsonParsed(myJson);
+    // #    print the json stringed
+    //printJsonString(myJson);
 
-typedef struct
-{
-    int start;
-    int end;
-    jsonType type;
+    // #    save the values in array
+    char** values = getJsonValues(myJson);
+    int i;
+    for(i = 0 ; i < myJson.size ; i++){
+        printf("Value: %s\n",values[i]);
+    }
+    return 0;
 }
-jsonItem;
 
-typedef struct
-{
-    jsonItem values[JSON_MAX_LENGTH];
-    char* keys[JSON_MAX_LENGTH];
-    unsigned int size;
-    const char* string;
-}
-jsonObject;
 
 
 const char* getTypeJson(int type){
@@ -135,23 +125,3 @@ void printJsonParsed(jsonObject myJson){
     }
 }
 
-
-
-int main (int args, const char *argv[]){
-    // #    create the json string
-    const char* json = "{\"userID\":1,\"username\":\"Admin\",\"pass\":\"Lorem123\",\"name\":\"Christian Brown\",\"admin\":true}";
-    // #    create json object and parse the string
-    jsonObject myJson = jsonParse(json);
-    // #    print the json parsed
-    //printJsonParsed(myJson);
-    // #    print the json stringed
-    //printJsonString(myJson);
-
-    // #    save the values in array
-    char** values = getJsonValues(myJson);
-    int i;
-    for(i = 0 ; i < myJson.size ; i++){
-        printf("Value: %s\n",values[i]);
-    }
-    return 0;
-}
