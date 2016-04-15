@@ -1,0 +1,9 @@
+{
+    "name":"Json Parser C",
+    "description":"Simple JSON parser library for C",
+    "author":"Chrivent (Christopher Ventura)",
+    "version":"0.0.1",
+    "keywords":["json","c","parser"],
+    "exclude":"jsonparser",
+    "test": "examples/*.c"
+}
