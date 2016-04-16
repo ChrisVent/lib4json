@@ -1,3 +1,5 @@
+#ifndef JSONPARSER_H
+#define JSONPARSER_H
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -55,3 +57,4 @@ void jsonStringify(jsonObject *json);
 char** getJsonValues(jsonObject myJson);
 jsonObject jsonParse(const char* stringed);
 void printJsonParsed(jsonObject myJson);
+#endif
