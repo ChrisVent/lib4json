@@ -6,7 +6,7 @@ int main (int args, const char *argv[]){
     // #    create json object and parse the string
     jsonObject myJson = jsonParse(json);
     // #    print the json parsed
-    //printJsonParsed(myJson);
+    printJsonParsed(myJson);
     // #    print the json stringed
     //printJsonString(myJson);
 
@@ -14,8 +14,9 @@ int main (int args, const char *argv[]){
     char** values = getJsonValues(myJson);
     int i;
     for(i = 0 ; i < myJson.size ; i++){
-        printf("Value: %s\n",values[i]);
+        fprintf(stdout,"Value: %s\n",values[i]);
     }
+    free(values);
     return 0;
 }
 
@@ -38,15 +39,28 @@ const char* getTypeJson(int type){
         case JSON_OBJECT:
             return "Object";
             break;
+        default:
+            return "Undefined";
     }
 }
+
 void toJson(jsonObject *theJson){
+    if(!theJson->string){
+        fprintf(stderr,"[!]Error parsing the Json.\n");
+        exit(2);
+    }
     int i, j = 0, length = strlen(theJson->string);
     for(i = 0 ; i < length && j < JSON_MAX_LENGTH; i++){
         if(theJson->string[i] == ':'){
             if(theJson->string[i+1] == '\"'){
                 theJson->values[j].start = i + 2;
                 theJson->values[j].type = JSON_STRING;
+            }
+            else if(theJson->string[i] == '{'){
+                theJson->values[j].type = JSON_OBJECT;
+            }
+            else if(theJson->string[i] == '['){
+                theJson->values[j].type = JSON_ARRAY;
             }
             else{
                 theJson->values[j].start = i + 1;
@@ -66,7 +80,6 @@ void toJson(jsonObject *theJson){
             else{
                 theJson->values[j].end = i;
             }
-
             j++;
         }
         if(theJson->string[i] == '}'){
@@ -83,17 +96,27 @@ void toJson(jsonObject *theJson){
 
 
 void printJsonString(jsonObject myJson){
-    char buff[255];
-    sprintf(buff,"%s\n",myJson.string);
-    char *stringed = (char*)malloc(sizeof(char) * strlen(buff));
-    strncpy(stringed,buff,strlen(buff));
-    printf("%s",stringed);
-    free(stringed);
+    if(myJson.string){
+        char buff[255];
+        sprintf(buff,"%s\n",myJson.string);
+        char *stringed = (char*)malloc(sizeof(char) * strlen(buff));
+        strncpy(stringed,buff,strlen(buff));
+        printf("%s",stringed);
+        free(stringed);
+    }
+    else{
+        fprintf(stderr, "[!] Error printing the JSON string\n");
+        exit(2);
+    }
 }
 
 void jsonStringify(jsonObject *json){};
 
 jsonObject jsonParse(const char* stringed){
+    if(strlen(stringed) < 1){
+        fprintf(stderr, "[!] Error accepting the JSON string\n");
+        exit(2);
+    }
     jsonObject json;
     json.string = (char*)malloc(sizeof(char) * strlen(stringed));
     json.string = stringed;
@@ -108,7 +131,8 @@ char** getJsonValues(jsonObject myJson){
     char** jsonValues;
     jsonValues = (char**)malloc(sizeof(char*) * myJson.size);
     if(jsonValues == NULL){
-        printf("[!] Error\n\n\n");
+        fprintf(stderr,"[!] Error Saving values\n");
+        exit(2);
     }
     for(i = 0 ; i < myJson.size ; i++){
         jsonValues[i] = (char*)malloc(sizeof(char)*128);
@@ -120,8 +144,12 @@ char** getJsonValues(jsonObject myJson){
 
 void printJsonParsed(jsonObject myJson){
     int i;
+    if(strlen(myJson.string) < 1){
+        fprintf(stderr, "[!] Error printing the JSON Parsed.\n");
+        exit(3);
+    }
     for(i = 0 ; i < myJson.size ; i++){
-        printf("%.*s\t\t(Type: %s)\n",myJson.values[i].end - myJson.values[i].start,myJson.string + myJson.values[i].start, getTypeJson(myJson.values[i].type));
+        fprintf(stdout,"%.*s\t\t(Type: %s)\n",myJson.values[i].end - myJson.values[i].start,myJson.string + myJson.values[i].start, getTypeJson(myJson.values[i].type));
     }
 }
 
