@@ -1,2 +1,4 @@
 jsonparser
 *.o
+/examples/*.o
+/examples/simple
