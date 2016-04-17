@@ -33,6 +33,26 @@ void ObjectFromJSON(jsonObject *theJson){
             if(theJson->string[i] == ':' && JSON_OBJECT != typeson){
                 jsonItem* aux = (jsonItem*) malloc(sizeof(jsonItem));
                 aux->next = NULL;
+                char* temp_key = aux->key = (char*)malloc(sizeof(char));
+                int k, l= 0;
+                for(k = i-2; theJson->string[k] != '\"'; k--){
+                    temp_key[l] = theJson->string[k];
+                    aux->key = (char*)realloc(aux->key,sizeof(aux->key) + sizeof(char));
+                    temp_key = (char*)realloc(temp_key,sizeof(aux->key) + sizeof(char));
+                    l++;
+                }
+                /* reverse the key */
+                int y = strlen(temp_key) -1;
+                char* temp2 = (char*)malloc(sizeof(temp_key));
+                int x = 0;
+                while(y >= 0)
+                {
+                    temp2[x] = temp_key[y];
+                    y--;
+                    x++;
+
+                }
+                strncpy(aux->key,temp2,strlen(aux->key));
                 if(theJson->string[i+1] == '\"'){
                     aux->start = i + 2;
                     aux->type = JSON_STRING;
@@ -168,7 +188,8 @@ void printJsonParsed(jsonObject myJson){
     aux = myJson.first_child;
     printf("\n");
     while(aux != NULL){
-        fprintf(stdout,"%.*s\t\t(Type: %s)\n",aux->end - aux->start ,myJson.string + aux->start, getTypeJson(aux->type));
+        printf("[ %s ]: ",aux->key);
+        fprintf(stdout,"%.*s\t(Type: %s)\n",aux->end - aux->start ,myJson.string + aux->start, getTypeJson(aux->type));
         aux = aux->next;
     }
 }

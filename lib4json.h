@@ -31,7 +31,7 @@ jsonItem{
     jsonType type;
     jsonItem* child;
     jsonItem* next;
-    const char* key;
+    char* key;
 
 }
 jsonItem;
