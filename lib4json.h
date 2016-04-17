@@ -1,17 +1,12 @@
-#ifndef JSONPARSER_H
-#define JSONPARSER_H
+#ifndef LIB4JSON_H
+#define LIB4JSON_H
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-
-#ifndef JSON_MAX_LENGTH
 #define JSON_MAX_LENGTH 64
-#endif
 
 
-#ifndef JSON_TYPE
-#define JSON_TYPE
 typedef enum
 {
     JSON_NUMBER = 1,
@@ -21,32 +16,26 @@ typedef enum
     JSON_OBJECT
 }
 jsonType;
-#endif
 
 
-#ifndef JSON_ITEM
-#define JSON_ITEM
 typedef struct
-{
+jsonItem{
     int start;
     int end;
     jsonType type;
+    jsonItem* childs;
+
 }
 jsonItem;
-#endif
 
-#ifndef JSON_OBJECTP
-#define JSON_OBJECTP
 typedef struct
 {
-    jsonItem values[JSON_MAX_LENGTH];
-    char* keys[JSON_MAX_LENGTH];
+    jsonItem* values;
+    char** keys;
     unsigned int size;
     const char* string;
 }
 jsonObject;
-
-#endif
 
 
 

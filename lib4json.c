@@ -1,4 +1,4 @@
-#include "jsonparser.h"
+#include "lib4json.h"
 
 const char* getTypeJson(int type){
     switch(type){
@@ -27,9 +27,11 @@ void toJson(jsonObject *theJson){
         fprintf(stderr,"[!]Error parsing the Json.\n");
         exit(2);
     }
+    theJson->values = (jsonItem*) malloc(sizeof(jsonItem));
     int i, j = 0, length = strlen(theJson->string);
     for(i = 0 ; i < length && j < JSON_MAX_LENGTH; i++){
         if(theJson->string[i] == ':'){
+            theJson->values = (jsonItem*) realloc(theJson->values,sizeof(theJson->values) + sizeof(jsonItem));
             if(theJson->string[i+1] == '\"'){
                 theJson->values[j].start = i + 2;
                 theJson->values[j].type = JSON_STRING;

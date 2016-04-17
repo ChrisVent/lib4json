@@ -1,7 +1,7 @@
 
 all:
-	gcc jsonparser.c -o jsonparser
+	gcc lib4json.c -o lib4json
 
 clean:
-	rm -f jsonparser.o
-	rm -f jsonparser
+	rm -f lib4json.o
+	rm -f lib4json
