@@ -55,7 +55,4 @@ void printJsonParsed(jsonObject myJson);
 void ArrayFromJSON(jsonObject *theJson);
 void ObjectFromJSON(jsonObject *theJson);
 jsonObject initJSON();
-void addJsonItem_String(jsonObject*, const char*, const char*);
-void addJsonItem_Number(jsonObject*, const char*, int);
-void addJsonItem_Boolean(jsonObject*, const char*, bool);
 #endif

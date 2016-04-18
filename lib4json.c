@@ -80,7 +80,6 @@ void ObjectFromJSON(jsonObject *theJson){
                 }
                 if(theJson->first_child == NULL){
                     theJson->first_child = aux;
-                    aux->next = NULL;
                 }
                 else{
                     aux->next = theJson->first_child;
@@ -90,7 +89,12 @@ void ObjectFromJSON(jsonObject *theJson){
                 theJson->size++;
                 //free(aux);
             }
-            if(theJson->string[i] == ','){
+            else if(theJson->string[i] == '}' && i != length-1){
+                    theJson->first_child->end = i;
+                    printf("%d and %d in %s",theJson->first_child->start, theJson->first_child->end,getTypeJson(theJson->first_child->type));
+                    theJson->size++;
+            }
+            else if(theJson->string[i] == ','){
                 if(theJson->string[i-1] == '\"'){
                     theJson->first_child->end = i - 1;
                 }
@@ -105,17 +109,15 @@ void ObjectFromJSON(jsonObject *theJson){
                 else{
                     theJson->first_child->end = i;
                 }
-                j++;
             }
-            if (!theJson->string[i+1] && theJson->string[i] == '}')
-            {
+            else if(theJson->string[i] == '}' && i == length-1){
                 if(theJson->string[i-1] == '\"'){
                     theJson->first_child->end = i -1;
                 }
                 else{
                     theJson->first_child->end = i;
                 }
-                break;
+
             }
         }
 }
@@ -212,17 +214,3 @@ jsonObject initJSON(){
     return json;
 }
 
-
-void addJsonItem_String(jsonObject* myjson, const char* key, const char* value){
-    char* temp = (char*)malloc(sizeof(myjson->string) + sizeof(char) * (strlen(key) + strlen(value) + 6));
-    sprintf(temp,"%.*s,\"%s\":\"%s\"}",strlen(myjson->string) -1,myjson->string,key,value);
-    myjson->first_child = NULL;
-    myjson->size = 0;
-    strcpy(myjson->string,temp);
-}
-void addJsonItem_Number(jsonObject* myjson, const char* key, int item){
-
-}
-void addJsonItem_Boolean(jsonObject* myjson, const char key, bool jsonbol){
-
-}

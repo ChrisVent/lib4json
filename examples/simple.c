@@ -2,18 +2,12 @@
 
 int main (int args, const char *argv[]){
     // #    create the json string
-    const char* json = "{\"userID\":1,\"username\":\"Admin\",\"pass\":\"Lorem123\",\"name\":\"Christian Brown\",\"Hobbies\":[\"golf\",\"rubik\"],\"admin\":true,\"foo\":\"bar\"}";
-
-    //const char* json = "{\"name\":\"Clark\",\"Last Name\":\"Ken\"}";
-    //const char* json = "{\"name\":\"Clark\"}";
+    const char* json = "{\"userID\":1,\"username\":\"Admin\",\"pass\":\"Lorem123\",\"name\":\"Christian Brown\",\"admin\":true,\"Hobbies\":[\"golf\",\"rubik\"]}";
     // #    create json object and parse the string
     jsonObject myJson = jsonParse(json);
     //addJsonItem_String(&myJson,"foo","bar");
-    printJsonString(myJson);
-    jsonObject otherJson = jsonParse(myJson.string);
-    printJsonString(otherJson);
     // #    print the json parsed
-    printJsonParsed(otherJson);
+    printJsonParsed(myJson);
     // #    print the json stringed
     // #    save the values in array
     /*char** values = getJsonValues(myJson);
