@@ -110,7 +110,7 @@ void ObjectFromJSON(jsonObject *theJson){
                     theJson->first_child->end = i;
                 }
             }
-            else if(theJson->string[i] == '}' && i == length-1){`
+            else if(theJson->string[i] == '}' && i == length-1){
                 if(theJson->string[i-1] == '\"'){
                     theJson->first_child->end = i -1;
                 }
@@ -185,7 +185,30 @@ char** getJsonValues(jsonObject myJson){
         aux = aux->next;
         i++;
     }
+    free(aux);
     return jsonValues;
+}
+
+
+char** getJsonKeys(jsonObject myJson){
+    int i;
+    char** jsonKeys;
+    jsonKeys = (char**)malloc(sizeof(char*) * myJson.size);
+    if(jsonKeys == NULL){
+        fprintf(stderr,"[!] Error Saving keys\n");
+        exit(ERR_JSON_MEMORY);
+    }
+
+    jsonItem* aux = (jsonItem*)malloc(sizeof(jsonItem));
+    aux = myJson.first_child;
+    while(aux != NULL && i < myJson.size){
+        jsonKeys[i] = (char*)malloc(sizeof(aux->key));
+        sprintf(jsonKeys[i],"%s",aux->key);
+        aux = aux->next;
+        i++;
+    }
+    free(aux);
+    return jsonKeys;
 }
 
 

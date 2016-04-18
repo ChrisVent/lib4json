@@ -50,6 +50,7 @@ void fromJson(jsonObject *theJson);
 void printJsonString(jsonObject myJson);
 void jsonStringify(jsonObject *json);
 char** getJsonValues(jsonObject myJson);
+char** getJsonKeys(jsonObject myJson);
 jsonObject jsonParse(const char* stringed);
 void printJsonParsed(jsonObject myJson);
 void ArrayFromJSON(jsonObject *theJson);
