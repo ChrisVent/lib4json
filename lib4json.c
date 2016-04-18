@@ -110,7 +110,7 @@ void ObjectFromJSON(jsonObject *theJson){
                     theJson->first_child->end = i;
                 }
             }
-            else if(theJson->string[i] == '}' && i == length-1){
+            else if(theJson->string[i] == '}' && i == length-1){`
                 if(theJson->string[i-1] == '\"'){
                     theJson->first_child->end = i -1;
                 }
