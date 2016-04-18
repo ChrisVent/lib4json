@@ -81,7 +81,6 @@ void ObjectFromJSON(jsonObject *theJson){
                 }
                 if(theJson->first_child == NULL){
                     theJson->first_child = aux;
-                    aux->next = NULL;
                 }
                 else{
                     aux->next = theJson->first_child;
@@ -91,23 +90,27 @@ void ObjectFromJSON(jsonObject *theJson){
                 theJson->size++;
                 //free(aux);
             }
-            if(theJson->string[i] == ','){
-                if(theJson->string[i-1] == '\"'){
-                    theJson->first_child->end = i - 1;
-                }
-                else{
+            else if(theJson->string[i] == '}' && i != length-1){
                     theJson->first_child->end = i;
-                }
-                j++;
+                    printf("%d and %d in %s",theJson->first_child->start, theJson->first_child->end,getTypeJson(theJson->first_child->type));
+                    theJson->size++;
             }
-            if(theJson->string[i] == '}' && i == strlen(theJson->string) -1 ){
+            else if(theJson->string[i] == ','){
                 if(theJson->string[i-1] == '\"'){
                     theJson->first_child->end = i - 1;
                 }
                 else{
                     theJson->first_child->end = i;
                 }
-                break;
+            }
+            else if(theJson->string[i] == '}' && i == length-1){
+                if(theJson->string[i-1] == '\"'){
+                    theJson->first_child->end = i - 1;
+                }
+                else{
+                    theJson->first_child->end = i;
+                }
+
             }
         }
 }

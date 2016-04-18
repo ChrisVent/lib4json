@@ -2,7 +2,7 @@
 
 int main (int args, const char *argv[]){
     // #    create the json string
-    const char* json = "{\"userID\":1,\"username\":\"Admin\",\"pass\":\"Lorem123\",\"name\":\"Christian Brown\",\"admin\":true,\"Hobbies\":[\"golf\",\"rubik\"],\"Personal\":{\"fullname\":\"Christian Bartholomeus Kennedy Brown\"}}";
+    const char* json = "{\"userID\":1,\"username\":\"Admin\",\"pass\":\"Lorem123\",\"name\":\"Christian Brown\",\"admin\":true,\"Hobbies\":[\"golf\",\"rubik\"]}";
     // #    create json object and parse the string
     jsonObject myJson = jsonParse(json);
     // #    print the json parsed
