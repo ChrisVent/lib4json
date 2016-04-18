@@ -24,7 +24,6 @@ const char* getTypeJson(int type){
 
 
 void ObjectFromJSON(jsonObject *theJson){
-    theJson->first_child = NULL;
         int i, j = 0, length = strlen(theJson->string);
         for(i = 0 ; i < length; i++){
             int typeson;
@@ -95,14 +94,23 @@ void ObjectFromJSON(jsonObject *theJson){
                 if(theJson->string[i-1] == '\"'){
                     theJson->first_child->end = i - 1;
                 }
+                else if(theJson->string[i-1] == '}'){
+                    if(theJson->string[i-2] == '\"'){
+                        theJson->first_child->end = i - 2;
+                    }
+                    else{
+                        theJson->first_child->end = i -1;
+                    }
+                }
                 else{
                     theJson->first_child->end = i;
                 }
                 j++;
             }
-            if(theJson->string[i] == '}' && i == strlen(theJson->string) -1 ){
+            if (!theJson->string[i+1] && theJson->string[i] == '}')
+            {
                 if(theJson->string[i-1] == '\"'){
-                    theJson->first_child->end = i - 1;
+                    theJson->first_child->end = i -1;
                 }
                 else{
                     theJson->first_child->end = i;
@@ -117,7 +125,7 @@ void ArrayFromJSON(jsonObject *theJson){
     //
 }
 void fromJson(jsonObject *theJson){
-    if(theJson->string && theJson->string[0] == '{' && theJson->string[strlen(theJson->string) - 1] == '}'){
+    if(theJson->string && theJson->string[0] == '{'){
         ObjectFromJSON(theJson);
     }
     else if(theJson->string && theJson->string[0] == '[' && theJson->string[strlen(theJson->string) - 1] == ']'){
@@ -150,8 +158,9 @@ jsonObject jsonParse(const char* stringed){
     }
     jsonObject json;
     json.string = (char*)malloc(sizeof(char) * strlen(stringed));
-    json.string = stringed;
+    strncpy(json.string,stringed,strlen(stringed));
     json.size = 0;
+    json.first_child = NULL;
     fromJson(&json);
     return json;
 };
@@ -194,3 +203,26 @@ void printJsonParsed(jsonObject myJson){
     }
 }
 
+
+jsonObject initJSON(){
+    jsonObject json;
+    json.size = 0;
+    json.first_child = NULL;
+    json.string = NULL;
+    return json;
+}
+
+
+void addJsonItem_String(jsonObject* myjson, const char* key, const char* value){
+    char* temp = (char*)malloc(sizeof(myjson->string) + sizeof(char) * (strlen(key) + strlen(value) + 6));
+    sprintf(temp,"%.*s,\"%s\":\"%s\"}",strlen(myjson->string) -1,myjson->string,key,value);
+    myjson->first_child = NULL;
+    myjson->size = 0;
+    strcpy(myjson->string,temp);
+}
+void addJsonItem_Number(jsonObject* myjson, const char* key, int item){
+
+}
+void addJsonItem_Boolean(jsonObject* myjson, const char key, bool jsonbol){
+
+}

@@ -2,13 +2,19 @@
 
 int main (int args, const char *argv[]){
     // #    create the json string
-    const char* json = "{\"userID\":1,\"username\":\"Admin\",\"pass\":\"Lorem123\",\"name\":\"Christian Brown\",\"admin\":true,\"Hobbies\":[\"golf\",\"rubik\"],\"Personal\":{\"fullname\":\"Christian Bartholomeus Kennedy Brown\"}}";
+    const char* json = "{\"userID\":1,\"username\":\"Admin\",\"pass\":\"Lorem123\",\"name\":\"Christian Brown\",\"Hobbies\":[\"golf\",\"rubik\"],\"admin\":true,\"foo\":\"bar\"}";
+
+    //const char* json = "{\"name\":\"Clark\",\"Last Name\":\"Ken\"}";
+    //const char* json = "{\"name\":\"Clark\"}";
     // #    create json object and parse the string
     jsonObject myJson = jsonParse(json);
+    //addJsonItem_String(&myJson,"foo","bar");
+    printJsonString(myJson);
+    jsonObject otherJson = jsonParse(myJson.string);
+    printJsonString(otherJson);
     // #    print the json parsed
-    printJsonParsed(myJson);
+    printJsonParsed(otherJson);
     // #    print the json stringed
-    //printJsonString(myJson);
     // #    save the values in array
     /*char** values = getJsonValues(myJson);
     int i;
@@ -18,5 +24,8 @@ int main (int args, const char *argv[]){
     }
     free(values);
     */
+
+
+    jsonObject AnotherJson = initJSON();
     return 0;
 }

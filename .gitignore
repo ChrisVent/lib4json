@@ -2,3 +2,5 @@ jsonparser
 *.o
 examples/*.o
 examples/simple
+examples/simple_test
+simple_test

@@ -1,7 +1,12 @@
 
 all:
-	gcc lib4json.c -o lib4json
+	gcc examples/simple.c -o simple_test
+
+test:
+	gcc examples/simple.c -o simple_test
 
 clean:
-	rm -f lib4json.o
-	rm -f lib4json
+	rm -f simple_test.o
+	rm -f simple_test
+	rm -f examples/simple
+	rm -f examples/simple.o

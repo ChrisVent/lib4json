@@ -4,8 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define JSON_MAX_LENGTH 64
-
+#define JSON_MAX_LENGTH 128
 
 typedef enum
 {
@@ -39,9 +38,8 @@ jsonItem;
 typedef struct
 {
     jsonItem* first_child;
-    jsonItem* last_child;
     unsigned int size;
-    const char* string;
+    char* string;
 }
 jsonObject;
 
@@ -56,4 +54,8 @@ jsonObject jsonParse(const char* stringed);
 void printJsonParsed(jsonObject myJson);
 void ArrayFromJSON(jsonObject *theJson);
 void ObjectFromJSON(jsonObject *theJson);
+jsonObject initJSON();
+void addJsonItem_String(jsonObject*, const char*, const char*);
+void addJsonItem_Number(jsonObject*, const char*, int);
+void addJsonItem_Boolean(jsonObject*, const char*, bool);
 #endif
