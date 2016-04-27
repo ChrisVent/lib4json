@@ -15,8 +15,8 @@ clone this repository in your project folder and include it:
 
 ```c
 
-// create json string {"username":"Admin","admin":true}
-const char* json = "{\"username\":\"Admin\",\"admin\":true}";
+// create json string {"userID":1,"username":"Admin","pass":"Lorem123","name":"Christian Brown","admin":true,"Hobbies":["golf","rubik"]}
+const char* json = "{\"userID\":1,\"username\":\"Admin\",\"pass\":\"Lorem123\",\"name\":\"Christian Brown\",\"admin\":true,\"Hobbies\":[\"golf\",\"rubik\"]}";
 
 jsonObject myJson = jsonParse(json); //create json object and parse the string
 printJsonParsed(myJson);
