@@ -7,7 +7,16 @@ int main (int args, const char *argv[]){
     jsonObject myJson = jsonParse(json);
     //addJsonItem_String(&myJson,"foo","bar"); // no do this! (in beta);
     printJsonParsed(myJson);
+    /* Output --->
 
+        [ Hobbies ]: ["golf","rubik"]   (Type: Array)
+        [ admin ]: true (Type: Boolean)
+        [ name ]: Christian Brown   (Type: String)
+        [ pass ]: Lorem123  (Type: String)
+        [ username ]: Admin (Type: String)
+        [ userID ]: 1   (Type: Number)
+
+    */
     //save the values in array
     char** values = getJsonValues(myJson);
     printf("\n====================================\n\n");
@@ -15,6 +24,16 @@ int main (int args, const char *argv[]){
     for(j = 0 ; j < myJson.size ; j++){
         fprintf(stdout,"Value: %s\n",values[j]);
     }
+    /* Output -->
+
+        Value: ["golf","rubik"]
+        Value: true
+        Value: Christian Brown
+        Value: Lorem123
+        Value: Admin
+        Value: 1
+
+    */
     free(values);
 
     //save the keys in array
@@ -24,6 +43,17 @@ int main (int args, const char *argv[]){
     for(i = 0 ; i < myJson.size ; i++){
         fprintf(stdout,"Key: %s\n",keys[i]);
     }
+
+    /* Output -->
+
+        Key: Hobbies
+        Key: admin
+        Key: name
+        Key: pass
+        Key: username
+        Key: userID
+
+    */
     free(keys);
 
 
