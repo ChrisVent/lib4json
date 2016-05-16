@@ -3,7 +3,10 @@
     "description":"Simple JSON parser library for C",
     "author":"Chrivent (Christopher Ventura)",
     "version":"0.0.1",
-    "keywords":["json","c","parser","lib4json"],
-    "exclude":"lib4json.o",
-    "test": "examples/*.c"
+    "keywords":[
+        "json",
+        "c",
+        "parser",
+        "lib4json"
+    ]
 }

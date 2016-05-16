@@ -35,7 +35,7 @@ int main (int args, const char *argv[]){
 
     */
     free(values);
-
+    /*
     //save the keys in array
     char** keys = getJsonKeys(myJson);
     int i;
@@ -43,7 +43,7 @@ int main (int args, const char *argv[]){
     for(i = 0 ; i < myJson.size ; i++){
         fprintf(stdout,"Key: %s\n",keys[i]);
     }
-
+    */
     /* Output -->
 
         Key: Hobbies
@@ -54,7 +54,7 @@ int main (int args, const char *argv[]){
         Key: userID
 
     */
-    free(keys);
+    //free(keys);
 
 
 
